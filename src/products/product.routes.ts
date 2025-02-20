@@ -32,12 +32,12 @@ productRouter.get("/product/:id",async (req: Request ,res : Response)=>{
     }
 })
 
-productRouter.get("/product",async (req: Request ,res : Response)=>{
-    try{
+productRouter.post("/product", async(req : Request, res : Response)  => {
+    try {
         const {name, price, quantity, image} = req.body
-        
-        if(!name || !price || !quantity || !image){
-            res.status(StatusCodes.BAD_REQUEST).json({error: `Please provide all ther required parameters...`})
+
+        if (!name || !price ||!quantity || !image) {
+            res.status(StatusCodes.BAD_REQUEST).json({error : `Please provide all the required parameters...`})
         }
         const newProduct = await database.create({...req.body})
         res.status(StatusCodes.CREATED).json({newProduct})
